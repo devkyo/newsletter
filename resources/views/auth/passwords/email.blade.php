@@ -36,7 +36,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-          <a href="../../index2.html"><b>Admin</b>LTE</a>
+          <img style="max-width:200px" src="{{ asset('img/avitar.png') }}" alt="" title="Avitar">
         </div>
 
         <!-- /.login-logo -->

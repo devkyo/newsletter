@@ -4,6 +4,9 @@
 
 
     <input type="file" @change="getImage" class="form-control-file" id="avatar" name="avatar">
+    <small id="avatar" class="form-text text-muted">
+      Usar una imagen maxima de 500x500px 
+    </small>
 
       <div v-if="userimagen">
         <img  width="100" :src="`/profiles/${userimagen}`" class="user__avatarthumb if">

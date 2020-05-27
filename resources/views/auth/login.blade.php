@@ -34,7 +34,7 @@
 
     <div class="login-box">
         <div class="login-logo">
-          <img src="{{ asset('img/avitar.png') }}" alt="">
+          <img style="max-width:200px" src="{{ asset('img/avitar.png') }}" alt="" title="Avitar">
         </div>
         <!-- /.login-logo -->
         <div class="card">

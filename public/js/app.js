@@ -1929,6 +1929,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userimagen'],
   data: function data() {
@@ -37605,6 +37608,12 @@ var render = function() {
       attrs: { type: "file", id: "avatar", name: "avatar" },
       on: { change: _vm.getImage }
     }),
+    _vm._v(" "),
+    _c(
+      "small",
+      { staticClass: "form-text text-muted", attrs: { id: "avatar" } },
+      [_vm._v("\n    Usar una imagen maxima de 500x500px \n  ")]
+    ),
     _vm._v(" "),
     _vm.userimagen
       ? _c("div", [
