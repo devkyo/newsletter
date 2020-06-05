@@ -2,18 +2,29 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Role;
 use App\User;
 use App\Charge;
+use App\Mailing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+ 
+        $this->middleware('auth');
+    }
+
     public function index(){
         $charges = Charge::all();
         $user = Auth::user();
-        return view('profile.edit', compact('user','charges'));
+        $mailings = Mailing::where('user_id', $user->id)->count();
+
+        return view('profile.edit', compact('user','charges','mailings'));
     }
 
     public function update(Request $request)
@@ -50,23 +61,5 @@ class ProfileController extends Controller
 
     }
 
-    // public function edit(){
-    //     $charges = Charge::all();
-    //     $user = Auth::user();
-    //     return view('profile.edit',compact('user','charges'));
-    // }
-
-
-    public function changePasswordForm()
-    {
-        return view('profile.password');
-    }
-    
-    
-    public function changePassword(Request $request)
-    {
-        if(!(Hash::check($request->get('current_password'), Auth::user()->password))){
-            return back()->with('error','La contraña ingresada es incorrecta.');
-        }
-    }
+   
 }

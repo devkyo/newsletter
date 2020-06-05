@@ -6,7 +6,7 @@
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>{{ config('app.name', 'Laravel') }} Avitar</title>
+  <title>{{ config('app.name', 'Laravel') }}</title>
 
   <!-- Scripts -->
   <script src="{{ asset('js/app.js') }}" defer></script>
@@ -126,7 +126,7 @@
               <a href="{{ route('profile.index')}}">Mi perfil</a>
             </span>
             <span class="dropdown-item dropdown-header">
-              <a  href="/profile/password">Cambiar contraseña</a>
+              <a  href="{{ route('change.index') }}">Cambiar contraseña</a>
             </span>
             <span class="dropdown-item dropdown-header">
               <a  style="background:tranparent" href="{{ route('logout') }}"
@@ -171,8 +171,8 @@
           <!-- Sidebar Menu -->
           <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-              <li class="nav-item  {{ Request::url('/dashboard') ? 'active' : '' }} ">
-                <a href="{{ route('dashboard') }}" class="nav-link">
+              <li class="nav-item">
+                <a href="{{ route('dashboard') }}" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-home"></i>
                   <p>
                     Dashboard
@@ -180,8 +180,8 @@
                 </a>
               </li>
               @if(Auth::user()->rol->name === 'Administrador')
-              <li class="nav-item {{ Request::url('/users') ? 'active' : '' }}">
-                <a href="{{ route('users.index') }}" class="nav-link">
+              <li class="nav-item">
+                <a href="{{ route('users.index') }}" class="nav-link {{ request()->is('users*') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-users"></i>
                   <p>
                     Usuarios
@@ -189,13 +189,24 @@
                 </a>
               </li>
               @endif
-              <li class="nav-item has-treeview {{ Request::url('/plantillas') ? 'active' : '' }}">
-                <a href="" class="nav-link">
+
+              @if(Auth::user()->rol->name === 'Administrador')
+              <li class="nav-item">
+                <a href="{{ route('projects.index') }}" class="nav-link {{ request()->is('projects*') ? 'active' : '' }}">
+                  <i class="nav-icon fas fa-building"></i>
+                  <p>
+                    Proyectos
+                  </p>
+                </a>
+              </li>
+              @endif
+
+              {{-- <li class="nav-item has-treeview">
+                <a href="" class="nav-link {{ request()->is('plantillas') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-file-code"></i>
                   <p>
                     Plantillas
                     <i class="right fas fa-angle-left"></i>
-                    {{-- <span class="right badge badge-danger">New</span> --}}
                   </p>
                 </a>
                 <ul class="nav nav-treeview">
@@ -213,9 +224,12 @@
                   </li>
                  
                 </ul>
-              </li>
-              <li class="nav-item {{{ Request::url('/mailing') ? 'active' : '' }}}">
-                <a href="{{ url('/mailing') }}" class="nav-link ">
+              </li> --}}
+
+              
+              
+              <li class="nav-item">
+                <a href="{{ route('mailings.index') }}" class="nav-link {{ request()->is('mailings*') ? 'active' : '' }}">
                   <i class="nav-icon fas fa-mail-bulk"></i>
                   <p>
                     Mailing
@@ -252,10 +266,10 @@
       <footer class="main-footer">
         <!-- To the right -->
         <div class="float-right d-none d-sm-inline">
-          Anything you want
+          Jobdigital
         </div>
         <!-- Default to the left -->
-        <strong>Copyright &copy; 2014-2019 <a href="https://avitar.pe">Avitar.pe</a>.</strong> All rights reserved.
+        <strong>Copyright &copy; 2020 <a href="https://avitar.pe">Avitar.pe</a>.</strong> All rights reserved.
       </footer>
     </div>
     <!-- ./wrapper -->
@@ -266,6 +280,8 @@
   
   <!-- Bootstrap 4 -->
    <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+
+   
   {{-- <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script> --}}
  
 
@@ -273,16 +289,13 @@
   {{-- <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script> --}}
   
 
-  {{-- <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-  <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script> --}}
+  {{-- <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script> --}}
+  {{-- <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script> --}}
 
 
    <!-- AdminLTE App -->
 
    <script src="{{ asset('js/adminlte.min.js') }}"></script>
-
-
-
 
 
 

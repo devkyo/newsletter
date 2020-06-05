@@ -19,16 +19,6 @@
   </div>
 </div>
 
-{{-- @if($errors->any())
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
-    </ul>
-  </div>
-@endif --}}
 
 <div class="card">
   <div class="card-body">
@@ -38,7 +28,7 @@
         <div class="col-md-6 col-12">
           <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control @error('name') is-invalid @enderror" id="nombre" name="name" placeholder="Nombre" value="{{ old('name') }}">
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="nombre" name="name" placeholder="" value="{{ old('name') }}">
             @error('name')
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
@@ -48,7 +38,7 @@
           </div>
           <div class="form-group">
             <label for="first_surname">Apellido Paterno</label>
-            <input   type="text" class="form-control @error('first_surname') is-invalid @enderror" id="first_surname" name="first_surname" placeholder="Apellido Paterno" value="{{ old('first_surname') }}">
+            <input   type="text" class="form-control @error('first_surname') is-invalid @enderror" id="first_surname" name="first_surname" placeholder="" value="{{ old('first_surname') }}">
             @error('first_surname')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -57,12 +47,12 @@
           </div>
           <div class="form-group">
             <label for="last_surname">Apellido Materno</label>
-            <input  type="text" class="form-control" id="last_surname" name="last_surname" placeholder="Apellido Materno" value="{{ old('last_surname') }}">
+            <input  type="text" class="form-control" id="last_surname" name="last_surname" placeholder="" value="{{ old('last_surname') }}">
           </div>
           <div class="form-group">
 
             <label for="email">Correo</label>
-            <input type="text" id="email" name="email" placeholder="tunombre@avitar.pe" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+            <input type="text" id="email" name="email" placeholder="name@avitar.pe" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
             @error('email')
               <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -74,7 +64,10 @@
         <div class="col-md-6 col-12">
           <div class="form-group">
             <label for="phone">Celular de contacto / WhatsApp</label>
-            <input  type="text" class="form-control" id="telefono" placeholder="+51987654321" value="+51" name="phone" value="{{ old('phone') }}">
+            <input  type="text" class="form-control" id="phone" placeholder="+51987654321" value="+51" name="phone" value="{{ old('phone') }}">
+            <small id="phone" class="form-text text-muted">
+              Ingresa tu numero sin espacio ni guion medio* 
+            </small>
           </div>
           <div class="form-group">
             <label for="charge">Cargo</label>
@@ -104,13 +97,15 @@
             </span>
             @enderror
           </div>
-          <avatar-component/>
+          <avatar-component
+            :message="'Usar una imagen maxima de 300x300 px para una mejor experiencia del usuario receptor del email.'"
+            :name="'avatar'"
+       />
         </div>
 
       </div>
 
-      <button type="submit" class="btn btn-primary">Crear</button>
-      <!-- <button  class="btn btn-danger">Cancelar crear usuario</button> -->
+      <button type="submit" class="btn btn-avitar">Crear</button>
     </form>
   </div>
 </div>

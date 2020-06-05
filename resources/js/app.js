@@ -26,7 +26,7 @@ window.Vue = require('vue');
 // Vue.component('templates-component', require('./components/TemplateComponent.vue').default);
 Vue.component('avatar-component', require('./components/AvatarComponent.vue').default);
 Vue.component('password-component', require('./components/PasswordComponent.vue').default);
-
+Vue.component('loading-component', require('./components/LoadingComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -39,4 +39,33 @@ Vue.use(Vuelidate)
 const app = new Vue({
 
     el: '#app',
+});
+
+
+
+$('#userdelete').on('shown.bs.modal', function (event){
+    var button = $(event.relatedTarget)
+    var user_id = button.data('userid')
+    var modal = $(this)
+    modal.find('.modal-body #user_id').val(user_id)
+})
+
+$('#mailingdelete').on('shown.bs.modal', function (event){
+    var button = $(event.relatedTarget)
+    var mailing_id = button.data('mailingid')
+    var modal = $(this)
+    modal.find('.modal-body #mailing_id').val(mailing_id)
+})
+
+$(function(){
+	// $('#form-bloque-botones .col-sm-10').append('<button type="button" id="mailing_preview" class="btn-info btn"><i class="fa fa-eye"></i>  Previsualizar</button>');
+
+	$('#form-mailing').on('click', '#mailing_preview', function(ev){
+        console.log('btn preview')
+		ev.preventDefault();
+		var data = $('#form-mailing').serialize();
+		var url = '/preview?'+data;
+		var win = window.open(url, '_blank');
+  	win.focus();
+	});
 });

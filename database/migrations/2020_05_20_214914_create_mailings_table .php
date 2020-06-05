@@ -16,6 +16,7 @@ class CreateMailingsTable extends Migration
         Schema::create('mailings', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+
             $table->string('adviser');
             $table->string('template');
             $table->string('client');
@@ -24,7 +25,7 @@ class CreateMailingsTable extends Migration
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')
-                ->onDelete('cascade')
+                ->onDelete('set null')
                 ->onUpdate('cascade');
         });
     }

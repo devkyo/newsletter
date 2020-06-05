@@ -1,14 +1,16 @@
 <template>
   <div class="form-group">
-    <label for="avatar">Foto</label>
+    <label for="avatar">Imagen</label>
 
 
-    <input type="file" @change="getImage" class="form-control-file" id="avatar" name="avatar">
+    <input type="file" @change="getImage" class="form-control-file" id="avatar" >
     <small id="avatar" class="form-text text-muted">
-      Usar una imagen maxima de 500x500px 
+    {{ message }}
     </small>
 
       <div v-if="userimagen">
+
+        
         <img  width="100" :src="`/profiles/${userimagen}`" class="user__avatarthumb if">
         
       </div>
@@ -24,7 +26,7 @@
 
 <script>
   export default {
-    props: ['userimagen'],
+    props: ['userimagen','message','name'],
     data(){
       return{
         avatarThumb: '',
@@ -34,7 +36,7 @@
       }
     },
     mounted(){
-      console.log(this.userimagen)
+      document.querySelector('#avatar').setAttribute('name', this.name)
     },
     methods: {
       //create user load avatar

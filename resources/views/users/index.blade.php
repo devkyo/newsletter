@@ -10,7 +10,7 @@
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li>
-            <a href="{{ route('users.create') }}" class="btn btn-primary">
+            <a href="{{ route('users.create') }}" class="btn btn-avitar">
               <i class="fas fa-plus-circle"></i> Crear usuario
             </a>
           </li>
@@ -27,6 +27,7 @@
 @endif
 
 <section class="content">
+  
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
@@ -74,12 +75,17 @@
                 </td>
                 
                 <td>
-                  <form action="{{ route('users.destroy',$user->id) }}" method="POST">
+                  
+                  @if($user->id === 1 && $user->id === Auth::user()->id)
+                 
+                  @else
                     <a href="{{ route('users.edit',$user->id) }}" class="btn btn-primary btn-sm">Editar</a>
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
-                  </form>
+                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"  data-userid={{$user->id}} data-target="#userdelete">
+                      Eliminar
+                    </button>
+                    @endif
+
+                  {{-- </form> --}}
                 </td>
               </tr>
               @endforeach
@@ -94,7 +100,33 @@
       </div>
 
     </div>
+    
+  </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="userdelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content bg-danger">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmación de eliminación</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{{ route('users.destroy','user') }}" method="POST">
+          @csrf
+          @method('DELETE')
+          <div class="modal-body">
+            <p class="text-center">¿Estas seguro que deseas eliminar el usuario?</p>
+            <input type="hidden" name="user_id" id="user_id" value="">
+          </div>
+          <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Si, eliminar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">No, cerrar</button>
+            </div>
+        </form>
+      </div>
+    </div>
   </div>
 
 </section>

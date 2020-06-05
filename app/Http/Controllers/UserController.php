@@ -19,17 +19,15 @@ class UserController extends Controller
 
     public function __construct()
     {
-        // $this->beforeFilter(function() {
-        //     if(Auth::user()->rol->name != 'Administrador') return redirect::to('/'); // home
-        // });
+ 
         $this->middleware('admin');
     }
 
     public function index()
-    {  
-        $users = User::latest()->paginate(5);
+    {   
+        $users = User::latest()->paginate(10);
         return view('users.index',compact('users'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);
+            ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
  
@@ -81,12 +79,12 @@ class UserController extends Controller
         return redirect()->route('users.index')
             ->with('success','Usuario creado correctamente.');
 
+
     }
 
 
     public function show(User $user)
     {
-        // return view('users.show',compact('user'));
         return User::find($user->id);
     }
 
@@ -119,7 +117,6 @@ class UserController extends Controller
             $file = $request->avatar;
             $avatarname = time().$file->getClientOriginalName();
             $file->move(public_path().'/profiles/', $avatarname);
-            // File::delete(public_path().'/profiles/'.$user->avatar);
         }else {
             $avatarname= $user->avatar;
         }
@@ -128,66 +125,29 @@ class UserController extends Controller
         $user->avatar = $avatarname;
         $user->rol_id = $request->rol_id;
         $user->charge_id = $request->charge_id;
-
-        // return dd($request->all());
         $user->save();
         return redirect()->route('users.index')
-            ->with('success','Usuario actualizado correctamente.');
+        ->with('success','Usuario actualizado correctamente.');
 
     }
 
-    public function destroy(User $user)
+    public function destroy(Request $request)
     {
+        $user = User::findOrFail($request->user_id);
+
         $user->delete();
         return redirect()->route('users.index')
             ->with('success','Usuario eliminado');
     }
 
 
-    // public function passwordUpdate(Request $request, User $user){
-
-    //     if($request->password === $user->password){
-
-    //         $password['password'] = $request->new_password;
-
-
-    //         $user->update($request->except('avatar'));
-    
-    //         $user->avatar = $avatarname;
-    //         $user->rol_id = $request->rol_id;
-    //         $user->charge_id = $request->charge_id;
-    
-    //         $user->save();
-
-
-    //         return dd($request->all());
-    
-
-    //     }else {
-    //         return 'La contraseña actual es incorrecta';
-    //     }
-        
-        
-    // }
-
     public function getUser($id){
-        // return User::bind($id);
-        return 'Hola'.$id;
+        return User::bind($id);
+        // return 'Hola'.$id;
     }
 
 
-    public function changePasswordForm()
-    {
-        return view('users.change');
-    }
-    
-    
-    public function changePassword(Request $request)
-    {
-        if(!(Hash::check($request->get('current_password'), Auth::user()->password))){
-            return back()->with('error','La contraña ingresada es incorrecta.');
-        }
-    }
+   
     
 
 }

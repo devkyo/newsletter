@@ -71,6 +71,9 @@
           <div class="form-group">
             <label for="phone">Celular o WhatsApp</label>
             <input  type="text" class="form-control" id="telefono" placeholder="+51987654321" name="phone" value="{{ $user->phone }}">
+            <small id="phone" class="form-text text-muted">
+              Ingresa tu numero sin espacio ni guion medio* 
+            </small>
           </div>
           <div class="form-group">
             <label for="charge">Cargo</label>
@@ -90,12 +93,16 @@
               @endforeach
             </select>
           </div>
-          <avatar-component v-bind:userimagen="'{{ $user->avatar }}'" />
+          <avatar-component 
+            :userimagen="'{{ $user->avatar }}'"
+            :message="'Usar una imagen de maximo 300x300 pixeles, para una mejor experiencia del usuario.'"
+            :name="'avatar'"
+            />
         </div>
 
       </div>
    
-        <button type="submit" class="btn btn-success">Guardar</button>
+        <button type="submit" class="btn btn-avitar">Guardar</button>
 
     </form>
   </div>

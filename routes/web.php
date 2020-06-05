@@ -23,13 +23,15 @@ Auth::routes(['register'=> false]);
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
 
-Route::get('users/changepassword', 'UserController@changePasswordForm')->name('changepassword');
-Route::post('users/changepassword', 'UserController@changePassword')->name('changepassword');
+Route::get('preview', 'MailingController@preview')->name('preview');
 
-Route::get('profile/password', 'ProfileController@changePasswordForm')->name('changeprofile');
+Route::get('/profile/change-password', 'ChangePasswordController@index')->name('change.index');
+Route::post('change-password', 'ChangePasswordController@store')->name('change.store');
 
 
 Route::resource('users', 'UserController')->middleware('auth');
+Route::resource('projects', 'ProjectController');
+Route::resource('mailings', 'MailingController')->middleware('auth');
 Route::resource('profile', 'ProfileController');
 
 

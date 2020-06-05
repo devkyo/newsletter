@@ -32,11 +32,12 @@
 
 @if ($message = Session::get('success'))
 <div class="alert alert-success">
-    <p>{{ $message }}</p>
+    {{ $message }}
 </div>
 @endif
 
-<div class="row">
+<div class="row"> 
+  
   
   <div class="col-md-3">
     <!-- Profile Image -->
@@ -55,7 +56,7 @@
 
         <ul class="list-group list-group-unbordered mb-3">
           <li class="list-group-item">
-            <b>Prospectos enviados</b> <a class="float-right">1,322</a>
+            <b>Correos enviados</b> <a class="float-right"><span class="badge  badge-primary">{{ $mailings }}</span></a>
           </li>
           {{-- <li class="list-group-item">
             <b>Following</b> <a class="float-right">543</a>
@@ -115,6 +116,9 @@
               <div class="form-group">
                 <label for="phone">Celular o WhatsApp</label>
                 <input  type="text" class="form-control" id="telefono" placeholder="+51987654321" name="phone" value="{{ $user->phone }}">
+                <small id="phone" class="form-text text-muted">
+                  Ingresa tu numero sin espacio ni guion medio* 
+                </small>
               </div>
               <div class="form-group">
                 <label for="charge">Cargo</label>
@@ -126,7 +130,9 @@
                 </select>
               </div>
               
-              <avatar-component v-bind:userimagen="'{{ $user->avatar }}'" />
+              <avatar-component :userimagen="'{{ $user->avatar }}'" 
+                :name="'avatar'"
+                />
             </div>
 
           </div>

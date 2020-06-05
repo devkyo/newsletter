@@ -14,17 +14,17 @@ class CreateTemplatesTable extends Migration
     public function up()
     {
         Schema::create('templates', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('user_id')->unsigned();
-            $table->string('name');
-            $table->text('template');
-            $table->string('image');
-            $table->enum('status',['ACTIVO','INACTIVE']);
-            $table->timestamps();
+            // $table->id();
+            // $table->bigInteger('user_id')->unsigned();
+            // $table->string('name');
+            // $table->text('template');
+            // $table->string('image');
+            // $table->enum('status',['ACTIVO','INACTIVE']);
+            // $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')
+            // ->onDelete('cascade')
+            // ->onUpdate('cascade');
         });
     }
 
